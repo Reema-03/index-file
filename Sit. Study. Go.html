@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sit. Study. Go.</title>
+<style>
+:root{--bg:#fff7ed;--card:#ffffff;--ink:#1f1720;--mute:#6b5b66;--accent:#e11d48;--accent2:#fb923c;--line:#f3d9c4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17101a;--card:#241a28;--ink:#fbeff3;--mute:#b9a5b2;--accent:#fb4f78;--accent2:#fb923c;--line:#3a2a40;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17101a;--card:#241a28;--ink:#fbeff3;--mute:#b9a5b2;--accent:#fb4f78;--accent2:#fb923c;--line:#3a2a40;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;justify-content:center;padding:20px 16px 40px}
+.wrap{width:100%;max-width:440px;text-align:center}
+h1{font-size:2rem;margin:8px 0 4px;letter-spacing:-.02em}
+.sub{color:var(--mute);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px;text-align:left}
+label.chk{display:flex;gap:12px;align-items:center;padding:10px 4px;font-size:1.05rem;cursor:pointer}
+label.chk input{width:22px;height:22px;accent-color:var(--accent)}
+label.chk input:checked + span{text-decoration:line-through;color:var(--mute)}
+input[type=text]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:1rem}
+.big{width:100%;padding:18px;font-size:1.25rem;font-weight:700;border:0;border-radius:18px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));cursor:pointer}
+.big:active{transform:scale(.98)}
+.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);padding:12px;border-radius:14px;font-size:1rem;cursor:pointer;width:100%;margin-top:10px}
+.time{font-size:4.5rem;font-weight:800;font-variant-numeric:tabular-nums;margin:6px 0}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0 14px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 1s linear}
+.task{font-size:1.15rem;font-weight:600;margin:0 0 6px}
+.msg{color:var(--mute);min-height:1.4em}
+.hide{display:none}
+.row{display:flex;gap:10px}
+.row button{flex:1}
+:root{--g1:#ffd1dc;--g2:#ffe3b0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:#4a1d3d;--g2:#3a2410}}
+:root[data-theme="dark"]{--g1:#4a1d3d;--g2:#3a2410}
+body{background:linear-gradient(120deg,var(--bg),var(--g1),var(--g2),var(--bg));background-size:300% 300%;animation:bgmove 10s ease infinite}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1}
+.card{background:color-mix(in srgb,var(--card) 78%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 8px 30px rgba(225,29,72,.12)}
+h1{background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 3s linear infinite,wob 2.5s ease-in-out infinite}
+.time{background:linear-gradient(90deg,var(--accent),var(--accent2),#a855f7,var(--accent));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 4s linear infinite,pulse 1s ease-in-out infinite;filter:drop-shadow(0 0 14px rgba(251,79,120,.55))}
+.big{background-size:200% 100%;animation:flow 3s linear infinite,glow 1.4s ease-in-out infinite}
+.bar{box-shadow:0 0 12px rgba(251,146,60,.5)}
+.bar i{box-shadow:0 0 14px var(--accent)}
+@keyframes bgmove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes flow{to{background-position:200% 0}}
+@keyframes wob{0%,100%{transform:rotate(-1.5deg) scale(1)}50%{transform:rotate(1.5deg) scale(1.04)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(251,79,120,.55)}50%{box-shadow:0 0 28px 10px rgba(251,146,60,.45)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<div class="wrap">
+
+<section id="start">
+  <h1>Okay Reem, chair. Now. 🪑</h1>
+  <p class="sub">You don’t have to study. You just have to sit for 5 minutes.</p>
+
+  <div class="card">
+    <label class="chk"><input type="checkbox" class="s"><span>Sit on the chair</span></label>
+    <label class="chk"><input type="checkbox" class="s"><span>Phone face-down, far away</span></label>
+    <label class="chk"><input type="checkbox" class="s"><span>Water + book/laptop open</span></label>
+  </div>
+
+  <div class="card">
+    <input id="topic" type="text" placeholder="ONE thing to study (e.g. SQL joins)">
+  </div>
+
+  <button class="big" id="go">Start my 5-minute deal</button>
+  <p class="msg" id="hint">Tick the three boxes, type one topic, press go.</p>
+</section>
+
+<section id="run" class="hide">
+  <p class="task" id="what"></p>
+  <div class="time" id="clock">05:00</div>
+  <div class="bar"><i id="fill"></i></div>
+  <p class="msg" id="line">Just start. Bad focus counts too.</p>
+  <p class="msg" id="lockmsg">🔒 Locked in. No pause, no quit. It opens when the timer ends.</p>
+</section>
+
+<section id="after" class="hide">
+  <h1 id="afterH">5 minutes done 🎉</h1>
+  <p class="sub" id="afterP">You’re already in. Keep going?</p>
+  <div class="row">
+    <button class="big" id="more25">25 more min</button>
+  </div>
+  <button class="ghost" id="more10">Just 10 more</button>
+  <button class="ghost" id="rest">Break (5 min)</button>
+  <p class="msg" id="count"></p>
+</section>
+
+</div>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var boxes=document.querySelectorAll('.s');
+  var total=300,left=300,t=null,paused=false,sessions=0,mode='focus';
+  var lines=['Just start. Bad focus counts too.','Read one line. Then another.','Your future self is watching. Be nice to her.','Data analyst Reem is being built right now.','Stay. Don’t open that tab.','Halfway is closer than you think.'];
+  function show(id){['start','run','after'].forEach(function(s){$(s).classList.toggle('hide',s!==id)})}
+  function fmt(s){var m=Math.floor(s/60),r=s%60;return (m<10?'0':'')+m+':'+(r<10?'0':'')+r}
+  function draw(){$('clock').textContent=fmt(left);$('fill').style.width=((total-left)/total*100)+'%'}
+  function begin(sec,label,m){
+    mode=m;total=left=sec;paused=false;if(m==='focus')lockOn();else lockOff();$('lockmsg').classList.toggle('hide',m!=='focus');
+    $('what').textContent=label;show('run');draw();clearInterval(t);
+    t=setInterval(function(){
+      if(paused)return;left--;draw();
+      if(left%60===0&&left>0&&mode==='focus')$('line').textContent=lines[Math.floor(Math.random()*lines.length)];
+      if(left<=0){clearInterval(t);finish()}
+    },1000);
+  }
+  function finish(){
+    lockOff();burst();
+    try{navigator.vibrate&&navigator.vibrate(300)}catch(e){}
+    if(mode==='focus'){sessions++;$('afterH').textContent='Done! 🎉';$('afterP').textContent='You sat. You studied. That’s the whole game. Keep going?'}
+    else{$('afterH').textContent='Break over 😌';$('afterP').textContent='Back to the chair?'}
+    $('count').textContent='Sessions finished today: '+sessions;
+    show('after');
+  }
+  var locked=false,wl=null;
+  function lockOn(){
+    locked=true;
+    window.onbeforeunload=function(e){e.preventDefault();e.returnValue='';return ''};
+    try{var el=document.documentElement;if(el.requestFullscreen&&!document.fullscreenElement)el.requestFullscreen().catch(function(){})}catch(e){}
+    try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(w){wl=w}).catch(function(){})}catch(e){}
+  }
+  function lockOff(){
+    locked=false;window.onbeforeunload=null;document.title='Sit. Study. Go.';
+    try{if(document.fullscreenElement)document.exitFullscreen()}catch(e){}
+    try{if(wl){wl.release();wl=null}}catch(e){}
+  }
+  document.addEventListener('visibilitychange',function(){
+    if(!locked)return;
+    if(document.hidden){document.title='⚠️ COME BACK AND SIT!'}
+    else{document.title='Sit. Study. Go.';$('line').textContent='Welcome back. Don’t leave again.'}
+  });
+  var cv=$('fx'),cx=cv.getContext('2d'),W=0,H=0,ps=[],cf=[];
+  function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}
+  rs();addEventListener('resize',rs);
+  var em=['📚','🔥','⚡','✨','💡','🧠','🚀','☕'];
+  for(var i=0;i<26;i++)ps.push({x:Math.random()*W,y:Math.random()*H,s:16+Math.random()*26,v:.3+Math.random()*.9,w:Math.random()*6,e:em[i%em.length]});
+  function burst(){for(var i=0;i<140;i++)cf.push({x:W/2,y:H/2,vx:(Math.random()-.5)*16,vy:-Math.random()*16-4,c:'hsl('+Math.random()*360+',90%,60%)',r:Math.random()*6+3,a:Math.random()*6})}
+  function loop(){
+    cx.clearRect(0,0,W,H);
+    var run=!$('run').classList.contains('hide')&&mode==='focus';
+    var pr=run?(total-left)/total:0,sp=1+pr*3+(run?1:0);
+    ps.forEach(function(p){p.y-=p.v*sp;p.w+=.02;p.x+=Math.sin(p.w)*.6;if(p.y<-40){p.y=H+40;p.x=Math.random()*W}cx.globalAlpha=.55;cx.font=p.s+'px serif';cx.fillText(p.e,p.x,p.y)});
+    cx.globalAlpha=1;
+    cf=cf.filter(function(c){return c.y<H+20});
+    cf.forEach(function(c){c.x+=c.vx;c.y+=c.vy;c.vy+=.35;c.vx*=.99;c.a+=.2;cx.fillStyle=c.c;cx.save();cx.translate(c.x,c.y);cx.rotate(c.a);cx.fillRect(-c.r,-c.r/2,c.r*2,c.r);cx.restore()});
+    requestAnimationFrame(loop)
+  }
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)loop();
+  function topic(){return $('topic').value.trim()||'Study time'}
+  $('go').onclick=function(){
+    var ok=true;boxes.forEach(function(b){if(!b.checked)ok=false});
+    if(!ok){$('hint').textContent='Tick all 3 boxes first. Takes 10 seconds.';return}
+    begin(300,'📖 '+topic(),'focus');
+  };
+  
+  $('more25').onclick=function(){begin(1500,'📖 '+topic(),'focus')};
+  $('more10').onclick=function(){begin(600,'📖 '+topic(),'focus')};
+  $('rest').onclick=function(){begin(300,'☕ Break. Stretch, water, no phone scrolling.','break')};
+})();
+</script>
+</body>
+</html>
